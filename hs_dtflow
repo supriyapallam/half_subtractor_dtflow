@@ -1,0 +1,30 @@
+//Design Code
+module hs(output diff,barrow,input a,b);
+  assign diff=a^b;
+  assign barrow=(~a)&b;
+endmodule
+
+//Test Bench Code
+module tb();
+  wire diff,barrow;
+  reg a,b;
+  hs DUT(diff,barrow,a,b);
+  initial
+    begin
+      integer i;
+      for(i=0;i<4;i=i+1)
+        begin
+          {a,b}=i;
+          #10;
+        end
+    end
+  initial
+    begin
+      $monitor("a=%b,b=%b,diff=%b,barrow=%b",a,b,diff,barrow);
+    end
+  initial
+    begin
+      $dumpfile("test.vcd");
+      $dumpvars(1);
+    end
+endmodule
